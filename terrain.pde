@@ -27,17 +27,21 @@ void draw() {
   }
 
   background(0);
-  stroke(255);
-  noFill();
-
   translate(width / 2, height / 2 + 50);
   rotateX(PI / 3);
   translate(-W / 2, -H / 2 - 50);
   for (int y = 0; y < r - 1; y++) {
     beginShape(TRIANGLE_STRIP);
     for (int x = 0; x < c; x++) {
-      vertex(x * s, y * s, t[x][y]);
-      vertex(x * s, (y + 1) * s, t[x][y + 1]);
+      float currentHeight = t[x][y];
+      float col = map(currentHeight, -100, 100, 0, 255);
+      fill(col, 50, 255 - col);
+      vertex(x * s, y * s, currentHeight);
+      
+      currentHeight = t[x][y + 1];
+      col = map(currentHeight, -100, 100, 0, 255);
+      fill(col, 50, 255 - col);
+      vertex(x * s, (y + 1) * s, currentHeight);
     }
     endShape();
   }
